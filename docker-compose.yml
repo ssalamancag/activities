@@ -1,0 +1,27 @@
+version: "2.1"
+services:
+  gatherme-activities-ms:
+    build: .
+    ports:
+      - "4000:4000"
+    depends_on:
+      gatherme-activities-db:
+        condition: service_healthy
+    healthcheck:
+      test: "curl -I gatherme-activities-ms:4000/gatherme-activities-ms/activities/activity/ --fail"
+      interval: 20s
+      retries: 10
+  gatherme-activities-db:
+    image: mysql:5.7
+    healthcheck:
+      test: "mysqlcheck -u$$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE"
+      interval: 20s
+      timeout: 5s
+      retries: 15
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: act
+      MYSQL_USER: sa
+      MYSQL_PASSWORD: 2020i
+    ports:
+      - "3306:3306"

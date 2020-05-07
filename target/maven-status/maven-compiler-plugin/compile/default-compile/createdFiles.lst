@@ -1,0 +1,5 @@
+sa/activities/model/Comment.class
+sa/activities/service/ActivityService.class
+sa/activities/resource/ActivityResource.class
+sa/activities/model/Activity.class
+sa/activities/JAXRSConfiguration.class
